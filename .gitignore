@@ -1,0 +1,6 @@
+**/build
+**/.idea
+/.gradle
+/testdb/log
+/testdb/seg0
+**/node_modules
