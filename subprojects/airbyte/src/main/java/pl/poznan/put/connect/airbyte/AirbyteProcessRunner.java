@@ -76,6 +76,13 @@ public class AirbyteProcessRunner {
         return response;
     }
 
+    /**
+     * Executes the discover action for a given image name and configuration.
+     * 
+     * @param imageName The name of the image to be used for the discover action.
+     * @param config The configuration for the discover action.
+     * @return A list of CustomFlightAssetDescriptor objects representing the discovered flight assets.
+     */
     public static List<CustomFlightAssetDescriptor> discover(String imageName, String config) {
         List<CustomFlightAssetDescriptor> response = new ArrayList<>();
         try {

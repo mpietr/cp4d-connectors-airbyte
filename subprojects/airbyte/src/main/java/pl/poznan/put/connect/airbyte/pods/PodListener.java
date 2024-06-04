@@ -30,6 +30,12 @@ public class PodListener {
 
     }
 
+    /**
+     * Sets up a server socket to listen for incoming connections on the specified port.
+     * When a connection is accepted, the input stream of the socket is assigned to the 'stdOut' field.
+     *
+     * @param port The port number on which the server socket will listen for connections.
+     */
     private void setupStdOutSocket(Integer port) {
         Map<String, String> context = MDC.getCopyOfContextMap();
         executorService.submit(() -> {
@@ -46,6 +52,11 @@ public class PodListener {
         });
     }
 
+    /**
+     * Sets up a server socket to listen for STDERR connections on the specified port.
+     * 
+     * @param port The port number to listen on.
+     */
     private void setupStdErrSocket(Integer port) {
         Map<String, String> context = MDC.getCopyOfContextMap();
         executorService.submit(() -> {
