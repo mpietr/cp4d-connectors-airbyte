@@ -60,6 +60,12 @@ public class AirbyteConnector
         // Do nothing
     }
 
+    /**
+        * Discovers assets based on the provided criteria.
+        *
+        * @param criteria The criteria used for asset discovery.
+        * @return A list of CustomFlightAssetDescriptor objects representing the discovered assets.
+        */
     @Override
     public List<CustomFlightAssetDescriptor> discoverAssets(CustomFlightAssetsCriteria criteria)
     {
@@ -92,6 +98,14 @@ public class AirbyteConnector
         return new AirbyteTargetInteraction(this, asset);
     }
 
+    /**
+        * Performs the specified action on the connector.
+        *
+        * @param action The action to perform.
+        * @param config The configuration for the action.
+        * @return The response from the action.
+        * @throws Exception If an error occurs while performing the action.
+        */
     @Override
     public ConnectionActionResponse performAction(String action, ConnectionActionConfiguration config) throws Exception {
         switch (action) {

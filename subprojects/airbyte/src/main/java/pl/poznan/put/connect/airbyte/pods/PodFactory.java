@@ -9,6 +9,15 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.List;
 
 public class PodFactory {
+    /**
+     * Creates a new Pod with the specified name, init container, containers, and volumes.
+     *
+     * @param name           the name of the Pod
+     * @param initContainer  the init container for the Pod
+     * @param containers     the list of containers for the Pod
+     * @param volumes        the list of volumes for the Pod
+     * @return the created Pod
+     */
     public static Pod create(String name, Container initContainer, List<Container> containers, List<Volume> volumes) {
         return new PodBuilder()
                 .withApiVersion("v1")

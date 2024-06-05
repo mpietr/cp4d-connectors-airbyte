@@ -10,6 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * The AirbyteAssetParser class provides methods for parsing assets based on their path and namespace.
+ * It is used to extract information about custom flight assets and generate asset descriptors.
+ */
 public class AirbyteAssetParser {
     private static final Pattern namespacePattern = Pattern.compile("^/[^/]*$", Pattern.CASE_INSENSITIVE);
 
@@ -31,6 +35,17 @@ public class AirbyteAssetParser {
             return getAssetWithoutNamespace(namespaceMatcher, assets, path);
         }
     }
+    /**
+     * Retrieves a list of namespaced assets based on the provided parameters.
+     *
+     * @param namespaceMatcher    The matcher for the namespace.
+     * @param streamMatcher       The matcher for the stream.
+     * @param assets              The list of custom flight asset descriptors.
+     * @param path                The path of the asset.
+     * @param namespaceAssetList  The list of namespace assets.
+     * @return                    A list of custom flight asset descriptors that match the provided parameters.
+     * @throws IllegalArgumentException if the path is in the incorrect format.
+     */
     public static List<CustomFlightAssetDescriptor> getNamespacedAsset(Matcher namespaceMatcher, Matcher streamMatcher,
                                                          List<CustomFlightAssetDescriptor> assets, String path,
                                                          List<String> namespaceAssetList){
@@ -88,6 +103,15 @@ public class AirbyteAssetParser {
             throw new IllegalArgumentException("Path is in the incorrect format");
         }
     }
+    /**
+     * Retrieves a list of custom flight asset descriptors without a namespace based on the provided parameters.
+     *
+     * @param namespaceMatcher A Matcher object used to match the namespace.
+     * @param assets           A list of CustomFlightAssetDescriptor objects representing the assets.
+     * @param path             A String representing the path.
+     * @return A list of CustomFlightAssetDescriptor objects without a namespace.
+     * @throws IllegalArgumentException If the path is in the incorrect format.
+     */
     public static List<CustomFlightAssetDescriptor> getAssetWithoutNamespace(Matcher namespaceMatcher,
                                                                              List<CustomFlightAssetDescriptor> assets, String path){
         if ("".equals(path)){

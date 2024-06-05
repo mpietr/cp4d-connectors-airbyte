@@ -29,6 +29,13 @@ public class AirbyteSourceInteraction extends RowBasedSourceInteraction<AirbyteC
     Process podProcess = null;
     List<CustomFlightAssetDescriptor> descriptors = List.of();
 
+    /**
+     * Constructs a new instance of the AirbyteSourceInteraction class.
+     *
+     * @param connector The AirbyteConnector object associated with the interaction.
+     * @param asset The CustomFlightAssetDescriptor object representing the asset associated with the interaction.
+     * @param descriptors The list of CustomFlightAssetDescriptor objects representing the descriptors associated with the interaction.
+     */
     protected AirbyteSourceInteraction(AirbyteConnector connector, CustomFlightAssetDescriptor asset, List<CustomFlightAssetDescriptor> descriptors) {
         super();
         setConnector(connector);
@@ -36,6 +43,13 @@ public class AirbyteSourceInteraction extends RowBasedSourceInteraction<AirbyteC
         this.descriptors = descriptors;
     }
 
+    /**
+     * Constructs a new instance of the AirbyteSourceInteraction class.
+     *
+     * @param connector The AirbyteConnector object associated with this interaction.
+     * @param asset The CustomFlightAssetDescriptor object associated with this interaction.
+     * @param podProcess The Process object representing the pod process.
+     */
     protected AirbyteSourceInteraction(AirbyteConnector connector, CustomFlightAssetDescriptor asset, Process podProcess)
     {
         super();

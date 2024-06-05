@@ -38,6 +38,18 @@ public class PodProcess extends Process{
         this(currentPodName, client, podNamespace, imageName, runCommand, configFileContent, Optional.empty());
     }
 
+    /**
+     * Constructs a new PodProcess object.
+     *
+     * @param currentPodName      the name of the current pod
+     * @param client              the Kubernetes client
+     * @param podNamespace        the namespace of the pod
+     * @param imageName           the name of the image
+     * @param runCommand          the command to run
+     * @param configFileContent   the optional content of the configuration file
+     * @param catalogFileContent  the optional content of the catalog file
+     * @throws IOException if an I/O error occurs
+     */
     public PodProcess(String currentPodName, KubernetesClient client, String podNamespace, String imageName, String runCommand, Optional<String> configFileContent, Optional<String> catalogFileContent) throws IOException {
         this.client = client;
 

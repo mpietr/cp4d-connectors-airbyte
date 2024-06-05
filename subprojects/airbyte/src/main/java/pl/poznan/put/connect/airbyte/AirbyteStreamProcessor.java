@@ -28,6 +28,15 @@ public class AirbyteStreamProcessor {
 
     private static final Gson gson = new Gson();
 
+    /**
+     * Processes the custom action by reading lines from the provided BufferedReader and
+     * extracting relevant information from each line. The extracted information is stored
+     * in a HashMap and returned as the response.
+     *
+     * @param bufferedReader The BufferedReader used to read lines of input.
+     * @return A HashMap containing the extracted information from the input lines.
+     * @throws IOException If an I/O error occurs while reading the input.
+     */
     public static HashMap<String,Object> processCustomAction(BufferedReader bufferedReader) throws IOException {
         HashMap<String,Object> response = new HashMap<>();
         for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
@@ -55,6 +64,14 @@ public class AirbyteStreamProcessor {
         return response;
     }
 
+    /**
+     * Processes the discover action by reading the input from the provided BufferedReader and
+     * returns a list of CustomFlightAssetDescriptor objects.
+     *
+     * @param bufferedReader The BufferedReader used to read the input.
+     * @return A list of CustomFlightAssetDescriptor objects representing the discovered assets.
+     * @throws IOException If an I/O error occurs while reading the input.
+     */
     public static List<CustomFlightAssetDescriptor> processDiscoverAction(BufferedReader bufferedReader) throws IOException {
         List<CustomFlightAssetDescriptor> assets  = new ArrayList<>();
         for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
