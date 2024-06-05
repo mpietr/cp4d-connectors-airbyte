@@ -5,8 +5,72 @@ A project is a part of the master thesis at Poznan University of Technology, don
 
 # Airbyte Connector for IBM Cloud Pak for Data
 
-# airbyte
+# airbyte-folder-structure
 
+## src/main/java/pl/poznan/put/connect/airbyte
+
+| Class | Description |
+| --- | --- |
+| `AirbyteAssetParser` | Parses assets using their path and namespace. Methods available to parse assets, retrieve namespaced assets, and retrieve assets without a namespace. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteAssetParser.java)|
+| `AirbyteConnector` | Represents a connector for Airbyte, an open-source data integration platform. Used to interact with Airbyte sources and targets, discover assets, perform actions, and manage interactions with the source and target. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteConnector.java)|
+| `AirbyteConnectorFactory` | Implements the ConnectorFactory interface. Creates instances of AirbyteConnector and maps data source type names to Docker image names for the Airbyte connectors. Follows the singleton pattern. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteConnectorFactory.java)|
+| `AirbyteCustomAction` | Handles custom actions in Airbyte. Provides methods to execute custom actions and retrieve the results.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteCustomAction.java)|
+| `AirbyteDatasourceType` | Implements the CustomFlightDatasourceType. Represents a data source type for Airbyte and sets the necessary attributes and properties for the data source types. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteDatasourceType.java)|
+| `AirbyteFlightProducer` | Implements the ConnectorFlightProducer. It represents a flight producer for Airbyte connectors. Uses the AirbyteConnectorFactory to create connectors. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteFlightProducer.java)|
+| `AirbyteImages` | Provides a way to get the image name for a given image type. Currently, only supports postgres as a valid image type. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteImages.java)|
+| `AirbyteProcessRunner` | Runs processes in Airbyte. Uses the PodProcess class to handle the actual running of the processes. Methods available to run "spec", "check", "discover", and "read" actions on given images. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteProcessRunner.java)|
+| `AirbyteSourceInteraction` | Implements the RowBasedSourceInteraction. Represents an interaction with a source in the Airbyte connector. Provides methods to get records from the source, get tickets, get fields, and close the interaction. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteSourceInteraction.java)|
+| `AirbyteStreamProcessor` | Processes custom, discover, and read actions in Airbyte. Reads lines from a BufferedReader, parses them into AirbyteMessage objects, and handles them based on their type. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteStreamProcessor.java)|
+| `AirbyteTargetInteraction` | Implements the RowBasedTargetInteraction. Represents an interaction with a target in the Airbyte connector. Provides methods to put records into the target and perform setup and wrap-up actions. However, these methods are currently empty and do not perform any action. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/AirbyteTargetInteraction.java)|
+
+## src/main/java/pl/poznan/put/connect/airbyte/containers
+
+| Class | Description |
+| --- | --- |
+| `InitialContainerFactory` | Creates an initial container setup for a given image. Configures the container with necessary settings and resources. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/containers/InitialContainerFactory.java) |
+| `MainContainerFactory` | Creates the main container for a given image, volume mounts, arguments, and ports. Reads a command template, replaces placeholders, and configures the container. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/containers/MainContainerFactory.java) |
+| `SocatContainerFactory` | Creates a container using the `alpine/socat` image and generates commands for redirecting data streams with `socat`. The `create` method configures the container, and `getOutStreamCommand` generates commands to transmit data to a specified host and port. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/containers/SocatContainerFactory.java) |
+
+## src/main/java/pl/poznan/put/connect/airbyte/models
+### src/main/java/pl/poznan/put/connect/airbyte/models/messages
+
+| Message Type | Description |
+| --- | --- |
+| `AirbyteMessageType` | The type of the Airbyte message. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteLogMessage` | The log message, if the type is `LOG`. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteSpecMessage` | The spec message, if the type is `SPEC`.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteConnectionStatusMessage` | The connection status message, if the type is `CONNECTION_STATUS`.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteCatalogMessage` | The catalog message, if the type is `CATALOG`.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteRecordMessage` | The record message, if the type is `RECORD`.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteStateMessage` | The state message, if the type is `STATE`.  [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+| `AirbyteTraceMessage` | The trace message, if the type is `TRACE`. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/messages)|
+
+More details about each message type are provided in https://docs.airbyte.com/understanding-airbyte/airbyte-protocol/#airbytemessage
+
+### src/main/java/pl/poznan/put/connect/airbyte/models/schema
+| Class | Description |
+| --- | --- |
+| `JsonSchema` | This class represents a JSON schema, which is a tool for validating the structure of JSON data. It has several fields including `$schema`, `title`, `description`, `type`, `properties`, and `required`. The `@Data` annotation from Lombok library is used to automatically generate boilerplate code like getters, setters, equals, hashCode, and toString methods. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/schema)|
+| `JsonSchemaProperty` | This class represents a property within a JSON schema. It has fields like `description`, `type`, `format`, and `airbyteType`. The `type` field can be any object, representing the flexibility of types a JSON property can have. The `airbyteType` field is annotated with `@SerializedName("airbyte_type")`, indicating that in JSON, this field will be named as "airbyte_type". [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/schema)|
+| `JsonSchemaTypes` | This is an enumeration that defines the possible types a JSON schema property can have. It includes `INTEGER`, `STRING`, `NUMBER`, `BOOLEAN`, `ARRAY`, and `OBJECT`. Each enum value is annotated with `@SerializedName`, which indicates the actual JSON property name when the enum is serialized or deserialized with Gson. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/models/schema)|
+
+ ## src/main/java/pl/poznan/put/connect/airbyte/pods
+
+| Class | Description |
+| --- | --- |
+| `PodFactory` | Factory class responsible for creating Kubernetes pods for Airbyte connectors. It provides methods to create pods with different configurations and settings. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/pods/PodFactory.java) |
+| `PodProcess` | Represents a process running within a Kubernetes pod. It manages the execution of commands and processes within the pod. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/pods/PodProcess.java) |
+| `PodParameters` | Defines parameters and constants used for configuring Kubernetes pods in Airbyte. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/pods/PodParameters.java) |
+| `PodUtils` | Utility class providing helper methods for working with Kubernetes pods in Airbyte. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/pods/PodUtils.java) |
+| `PodListener` | Listener interface for monitoring events related to Kubernetes pods in Airbyte. It allows implementing custom actions based on pod lifecycle events. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/pods/PodListener.java) |
+
+## src/main/java/pl/poznan/put/connect/airbyte/volumes
+| Class | Description |
+| --- | --- |
+| `VolumeFactory` | Designed to create Kubernetes volumes and volume mounts, using the Fabric8 Kubernetes client library. [Source](https://github.com/IBM/cp4d-connectors-airbyte/blob/main/subprojects/airbyte/src/main/java/pl/poznan/put/connect/airbyte/volumes)|
+
+
+# Main classes
 ## AirbyteAssetParser
 
 ***AirbyteAssetParser*** is a Java class in the `pl.poznan.put.connect.airbyte` package. 
@@ -216,12 +280,12 @@ Currently, it only supports `postgres` as a valid image type (visible in constan
 
 
 ## AirbyteProcessRunner
-Used to call to run processes in Airbyte. The actual running of the processes is handled by the [PodProcess](#podprocess) class (pods subdirectory).
+Used to call to run processes in Airbyte. The actual running of the processes is handled by the [PodProcess](#srcmainjavaplpoznanputconnectairbytepods) class (pods subdirectory).
 
 ### Methods
 
 #### `spec(...)`
-Runs the **"spec"** action on the given image. It creates a new [PodProcess](#podprocess) with the "spec" command and the given image name, processes the output, and returns a *ConnectionActionResponse* with the processed output.
+Runs the **"spec"** action on the given image. It creates a new [PodProcess](#srcmainjavaplpoznanputconnectairbytepods) with the "spec" command and the given image name, processes the output, and returns a *ConnectionActionResponse* with the processed output.
 
 - parameters: 
     - `String imageName`
@@ -233,7 +297,7 @@ Runs the **"spec"** action on the given image. It creates a new [PodProcess](#po
 ---
 
 #### `check(...)`
-Runs the **"check"** action on the given image with the given configuration. It creates a new [PodProcess](#podprocess) with the "check" command, the given image name, and the given configuration and returns a *ConnectionActionResponse* with the processed output.
+Runs the **"check"** action on the given image with the given configuration. It creates a new [PodProcess](#srcmainjavaplpoznanputconnectairbytepods) with the "check" command, the given image name, and the given configuration and returns a *ConnectionActionResponse* with the processed output.
 
 - parameters: 
     - `String imageName`
@@ -246,7 +310,7 @@ Runs the **"check"** action on the given image with the given configuration. It 
 ---
 
 #### `discover(...)`
-Runs the **"discover"** action on the given image with the given configuration. It creates a new [PodProcess](#podprocess) with the "discover" command, the given image name, and the given configuration and returns a list of descriptors.
+Runs the **"discover"** action on the given image with the given configuration. It creates a new [PodProcess](#srcmainjavaplpoznanputconnectairbytepods) with the "discover" command, the given image name, and the given configuration and returns a list of descriptors.
 
 - parameters: 
     - `String imageName`
@@ -259,7 +323,7 @@ Runs the **"discover"** action on the given image with the given configuration. 
 ---
 
 #### `read(...)`
-Runs the **"read"** action on the given image with the given configuration. It creates a new [PodProcess](#podprocess) with the "read" command, the given image name, given configuration and catalog, and returns the pod process used.
+Runs the **"read"** action on the given image with the given configuration. It creates a new [PodProcess](#srcmainjavaplpoznanputconnectairbytepods) with the "read" command, the given image name, given configuration and catalog, and returns the pod process used.
 
 - parameters: 
     - `String imageName`
@@ -298,7 +362,7 @@ Processes the read action using the [AirbyteStreamProcessor](#airbytestreamproce
 ---
 
 #### `getTickets()`
-Creates a new [Ticket]() and returns it wrapped in list.
+Creates a new `Ticket` and returns it wrapped in list.
 - returns:
     - `List<Ticket>`
 - exeptions:
@@ -324,7 +388,7 @@ Closes *AirbyteSourceInteraction*.
 
 Used to process custom, discover and read actions in Airbyte. 
 
-Processing is done by reading lines from a `BufferedReader`, parsing them into [AirbyteMessage]() (subdirectory models) objects, and handling them based on their type.
+Processing is done by reading lines from a `BufferedReader`, parsing them into [AirbyteMessage](#srcmainjavaplpoznanputconnectairbytemodelsmessages) (subdirectory models) objects, and handling them based on their type.
 
 ### Methods
 
@@ -400,47 +464,3 @@ Currently, it returns `null`.
  Currently, it returns `null`.
 - returns:
     - `CustomFlightAssetDescriptor`
-
-
-# airbyte/models
-
-## Messages
-
-This directory contains classes representing different types of messages used in Airbyte.
-
-| Message Type | Description |
-| --- | --- |
-| `AirbyteMessageType` | The type of the Airbyte message. |
-| `AirbyteLogMessage` | The log message, if the type is `LOG`. |
-| `AirbyteSpecMessage` | The spec message, if the type is `SPEC`.  |
-| `AirbyteConnectionStatusMessage` | The connection status message, if the type is `CONNECTION_STATUS`.  |
-| `AirbyteCatalogMessage` | The catalog message, if the type is `CATALOG`.  |
-| `AirbyteRecordMessage` | The record message, if the type is `RECORD`.  |
-| `AirbyteStateMessage` | The state message, if the type is `STATE`.  |
-| `AirbyteTraceMessage` | The trace message, if the type is `TRACE`. |
-
-More details about each message type are provided in https://docs.airbyte.com/understanding-airbyte/airbyte-protocol/#airbytemessage
-
-## schema
-
-| Class | Description |
-| --- | --- |
-| `JsonSchema` | This class represents a JSON schema, which is a tool for validating the structure of JSON data. It has several fields including `$schema`, `title`, `description`, `type`, `properties`, and `required`. The `@Data` annotation from Lombok library is used to automatically generate boilerplate code like getters, setters, equals, hashCode, and toString methods. |
-| `JsonSchemaProperty` | This class represents a property within a JSON schema. It has fields like `description`, `type`, `format`, and `airbyteType`. The `type` field can be any object, representing the flexibility of types a JSON property can have. The `airbyteType` field is annotated with `@SerializedName("airbyte_type")`, indicating that in JSON, this field will be named as "airbyte_type". |
-| `JsonSchemaTypes` | This is an enumeration that defines the possible types a JSON schema property can have. It includes `INTEGER`, `STRING`, `NUMBER`, `BOOLEAN`, `ARRAY`, and `OBJECT`. Each enum value is annotated with `@SerializedName`, which indicates the actual JSON property name when the enum is serialized or deserialized with Gson. |
-
-<!-- | Class | Description |
-| --- | --- |
-| `JsonSchema` | Represents a JSON schema with fields for schema details and properties, and uses Lombok's `@Data` for boilerplate code. |
-| `JsonSchemaProperty` | Represents a property in a JSON schema with fields for property details and type flexibility. |
-| `JsonSchemaTypes` | Defines possible types a JSON schema property can have, with each type represented as an enum value. | -->
-
-# airbyte/pods
-
-## PodProcess
-
-# airbyte/containers
-
-# airbyte/models
-
-# airbyte/volumnes
