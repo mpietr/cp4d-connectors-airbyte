@@ -11,6 +11,17 @@ If the command returns different version, than after 4th step execute following 
 - `export JAVA_HOME="/c/Users/tmp_user/.jdks/temurin-11.0.22" ` - path to main directory with Java, replace `\` with `/` and replace begining `/c/` with `C:\`
 - `export PATH=$JAVA_HOME/bin:$PATH`
 
+## Data sources
+
+Data sources can be defined by editing `typesImagesMap` in file `AirbyteConnectorFactory.java` according to [Aribyte documentation](https://docs.airbyte.com/integrations/):
+```java
+private static final Map<String, String> typesImageMap = Map.of(
+            "airbyte-postgres", "airbyte/source-postgres",
+            "airbyte-mongodb","airbyte/source-mongodb",
+            "airbyte-file", "airbyte/source-file"
+    );
+```
+
 ## Steps
 1. Start minikube: `minikube start`
 2. Clone the repository: `git clone` https://github.com/IBM/cp4d-connectors-airbyte.git
